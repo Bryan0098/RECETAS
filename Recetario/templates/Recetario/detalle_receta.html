@@ -1,0 +1,80 @@
+{% extends "layout.html" %}
+
+{% block title %}La Receta{% endblock %}
+
+{% block content %}
+<div class="flex flex-col w-full border-opacity-50 mb-8 max-w-[950px] mx-auto mt-4">
+  <div class="grid min-h-[50vh] card bg-base-300 rounded-box">
+    
+    <div class="max-w-full p-4 sm:p-8">
+      <div class="mb-4 flex justify-between items-center">
+        <p class="text-sm font-bold">Receta de: {{ receta.autor.username }}</p>
+        <p class="text-sm">{{ receta.fecha_creacion|date:"d/m/Y" }}</p>
+      </div>
+    
+      <h2 class="text-xl font-bold mb-4">{{ receta.titulo }}</h2>
+    
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div class="mb-6">
+          <h3 class="text-lg font-semibold mb-2">Descripción:</h3>
+          <p>{{ receta.descripcion }}</p>
+        </div>
+    
+        <div class="mb-6">
+          <h3 class="text-lg font-semibold mb-2">Ingredientes:</h3>
+          <p>{{ receta.ingredientes }}</p>
+        </div>
+    
+        {% if receta.imagen %}
+          <div class="mb-6 sm:col-span-2 flex justify-center items-center">
+            <img src="{{ receta.imagen.url }}" alt="imagen de la receta" class="w-full h-auto max-h-[300px] object-cover rounded-lg">
+          </div>
+        {% endif %}
+      </div>
+    
+      <div>
+        <h3 class="text-lg font-semibold mb-2">Instrucciones:</h3>
+        <p>{{ receta.instrucciones }}</p>
+      </div>
+    </div>
+    
+    
+    
+
+  </div>
+
+  {% if user.is_authenticated and user == receta.autor %}
+    <div class="flex gap-2 justify-center mt-4">
+      <form action="{% url 'eliminar-receta' receta.id %}" method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-secondary">Eliminar</button>
+      </form>
+      <a href="{% url 'editar-receta' receta.id %}" class="btn btn-primary">Editar</a>
+    </div>
+  {% endif %}
+
+  <div class="divider">Reseñas:</div>
+  <div class="grid gap-2 min-h-[100px] card bg-base-300 rounded-box place-items-center p-2">
+
+    {% for comentario in comentarios %}
+      {% include "componets/commentor.html" %}
+    {% endfor %}
+
+    {% if comentarios|length == 0 %}
+      <div class="text-center">
+        <p class="text-lg">No hay comentarios, sé el primero en dar una reseña!</p>
+      </div>
+    {% endif %}
+    
+  </div>
+
+  {%if user.is_authenticated %}
+    {% include "componets/comment.html" %}
+  {% else %}
+    <div class="pt-2 pl-2"> 
+      <a href="{% url 'login' %}" class="btn btn-primary">Inicia sesión para comentar</a>
+    </div>
+  {% endif %}    
+
+</div>
+{% endblock %}

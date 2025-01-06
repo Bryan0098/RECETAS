@@ -1,0 +1,19 @@
+<div class="bg-base-100 w-full p-4 rounded-lg flex flex-row">
+  <div>
+    <h3 class="text-xl font-semibold">{{comentario.autor}}</h3>
+    <p class="text-gray-700">{{comentario.texto}}</p>
+    <p class="text-gray-500 text-sm">{{comentario.fecha_creacion}}</p>
+  </div>
+
+  {% if comentario.autor.id == request.user.id or receta.autor.id == request.user.id %}
+    <div class="ml-auto flex items-end">
+      <form action="{% url 'eliminar-comentario' comentario.id %}" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="id" value="{{ comentario.id }}">
+        <input type="hidden" name="autor_id" value="{{ comentario.autor.id }}">
+        <button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-md">Eliminar comentario</button>
+      </form>
+    </div>
+  {% endif %}
+  
+</div>

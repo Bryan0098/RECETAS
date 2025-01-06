@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+
+{% block title %}Recetas{% endblock %}
+
+{% block content %}
+
+  {% comment %} <div class="min-h-[70vh]">
+  </div> {% endcomment %}
+  
+  <div class="bg-base-200 py-10 mb-8">
+    <div class="mx-auto max-w-[1200px]">
+        <div class="flex justify-center items-center pb-4">
+            <h1 class="text-3xl font-bold text-gray-700">Recetas</h1>
+        </div>
+
+        <div class="mx-auto text-center">
+            <form class="form-control inline-block" action="{% url 'buscar-receta' %}" method="POST">
+                {% csrf_token %}
+                <input type="text" name="search_value" placeholder="Valor de búsqueda" class="input input-bordered" />
+                <select name="search_type" class="select select-bordered">
+                    <option value="titulo">Título</option>
+                    <option value="ingredientes">Ingredientes</option>
+                    <option value="descripcion">Descripción</option>
+                    <optgroup label="Dificultad">
+                      <option value="F">Fácil</option>
+                      <option value="M">Medio</option>
+                      <option value="D">Difícil</option>
+                  </optgroup>
+                    <optgroup label="Tiempo de Preparación">
+                        <option value="tiempo_0_30">0-30 minutos</option>
+                        <option value="tiempo_30_60">30-60 minutos</option>
+                        <option value="tiempo_60_mas">60+ minutos</option>
+                    </optgroup>
+                </select>
+                <button class="btn btn-primary" type="submit">Buscar</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+  <div class="mx-auto max-w-[1200px] mb-8 min-h-[70vh]">
+    
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 justify-items-center max-w-fit mx-auto">
+
+      {{mensaje}}
+
+      {% for receta in recetas %}
+        {% include 'componets/card.html'%}
+      {% endfor %}
+
+    </div>
+    
+  </div>
+
+{% endblock %}

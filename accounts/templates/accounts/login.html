@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block title %}Ingresa{% endblock %}
+
+{% block content %}
+
+<div class="flex justify-center items-center bg-gray-100 py-12 px-4 sm:px-6 lg:px-8 mb-8 ">
+  <div class="max-w-md w-full space-y-8">
+    <div>
+      <h2 class="text-center text-3xl font-extrabold text-gray-900">
+        Ingresa
+      </h2>
+    </div>
+  </div>
+</div>
+
+<div class="flex justify-center items-center h-[59vh]">
+  <form action="{% url 'login' %}" method="post" class="bg-white p-10 rounded-lg shadow-lg">
+    {% csrf_token %}
+    {% if mensaje %}
+      <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+        <strong class="font-bold">Error:</strong>
+        <span class="block sm:inline">{{ mensaje }}</span>
+      </div>
+    {% endif %}
+    <div class="mb-4">
+      <label for="username" class="block text-gray-700 font-bold mb-2">Nombre de usuario:</label>
+      <input required type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" name="usuario">
+    </div>
+    <div class="mb-6">
+      <label for="password" class="block text-gray-700 font-bold mb-2">Contraseña:</label>
+      <input required type="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="password" name="clave">
+    </div>
+
+    
+
+    <div class="flex items-center justify-between">
+      <button class="btn btn-primary">Iniciar sesión</button>
+    </div>
+  </form>
+</div>
+
+{% endblock %}

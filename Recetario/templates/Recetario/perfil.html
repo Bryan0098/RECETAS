@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% block title %}Mis Recetas{% endblock %}
+
+{% block content %}
+
+{% comment %} <div class="min-h-[70vh]">
+</div> {% endcomment %}
+
+<div class="bg-base-200 py-10 mb-8">
+  <div class="mx-auto max-w-[1200px]">
+
+    <div class="flex flex-col justify-center items-center">
+        <h1 class="text-3xl font-bold text-gray-700">Mis Recetas</h1>
+        <a href="{% url 'crear-receta' %}" class="btn btn-primary mt-2">Crear Receta</a>
+    </div>
+
+    {% comment %} <div class="mx-auto text-center">
+      <form class="form-control inline-block" action="{% url 'buscar-receta' %}" method="POST">
+        {% csrf_token %}
+        <input type="text" name="titulo" placeholder="Buscar receta" class="input input-bordered w-[60vw] max-w-[950px]" />
+        <button class="btn btn-primary">Buscar</button>
+      </form>
+    </div> {% endcomment %}
+  </div>
+</div>
+
+
+
+  <div class="mx-auto max-w-[1200px] mb-8 min-h-[70vh]">
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 justify-items-center max-w-fit mx-auto">
+
+      {% for receta in recetas %}
+        {% include 'componets/mis-recetas-card.html'%}
+      {% endfor %}
+
+    </div>
+    
+  </div>
+
+{% endblock %}

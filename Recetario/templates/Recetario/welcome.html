@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block title %}Bienvenido a CocinaFácil{% endblock %}
+
+{% block content %}
+
+  <div class="hero min-h-[91vh] bg-base-200">
+    <div class="hero-content flex-col lg:flex-row-reverse">
+      <img src="https://i.postimg.cc/Y9Sf87GK/f37cf71a-3342-42d3-bccd-0e6662e72f1d.png" class="max-w-[230px] sm:max-w-[350px] rounded-lg" />
+      <div>
+        <h1 class="text-5xl font-bold">Encuentra tus recetas favoritas!</h1>
+        <p class="py-6">
+          Una pagina donde podras encontrar tus recetas favoritas, y podras compartirlas con tus amigos.
+        </p>
+        <a href="/recetas" class="btn btn-primary">A encontrar recetas!</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- {% include 'componets/divider-welcome.html' %} -->
+
+{% endblock %}

@@ -1,0 +1,12 @@
+<div class="card w-96 bg-base-100 shadow-xl max-w-full" >
+  {% comment %} <a > {% endcomment %}
+    <a class="card-body" href="{% url 'detalle-receta' receta.id %}">
+      <p class="text-xs text-opacity-50 text-right">{{ receta.autor }} - {{ receta.fecha_creacion|date:"d/m/Y"  }}</p>
+      <h2 class="card-title">{{ receta.titulo }}</h2>
+      <p class="line-clamp-4">{{ receta.descripcion }}</p>
+    </a>
+    {% if receta.imagen %}
+      <figure><img src="{{ receta.imagen.url }}" class="w-full"/></figure>
+    {% endif %}
+  {% comment %} </a> {% endcomment %}
+</div> 
